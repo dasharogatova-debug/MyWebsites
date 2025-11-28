@@ -63,6 +63,7 @@
             font-weight: 700;
             display: flex;
             align-items: center;
+            flex-shrink: 0;
         }
         
         .logo-icon {
@@ -70,13 +71,20 @@
             font-size: 2.2rem;
         }
         
+        nav {
+            flex: 1;
+            overflow-x: auto;
+        }
+        
         nav ul {
             display: flex;
             list-style: none;
+            white-space: nowrap;
         }
         
         nav ul li {
-            margin-left: 25px;
+            margin-left: 15px;
+            flex-shrink: 0;
         }
         
         nav ul li a {
@@ -86,6 +94,7 @@
             transition: all 0.3s ease;
             padding: 5px 10px;
             border-radius: 20px;
+            display: block;
         }
         
         nav ul li a:hover {
@@ -516,10 +525,32 @@
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
             
             nav ul {
-                margin-top: 20px;
+                display: flex;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
+            }
+            
+            nav ul li {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+            nav ul li:first-child {
+                margin-left: 0;
             }
             
             .hero h1 {
@@ -539,6 +570,26 @@
                 max-width: 250px;
             }
         }
+        
+        /* Для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.7rem;
+            }
+            
+            nav ul li a {
+                font-size: 0.9rem;
+                padding: 4px 8px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -554,7 +605,7 @@
                     <ul>
                         <li><a href="#about">Обо мне</a></li>
                         <li><a href="#advantages">Преимущества</a></li>
-                        <li><a href="#services">Услуги и цены</a></li>
+                        <li><a href="#services">Услуги</a></li>
                         <li><a href="#testimonials">Отзывы</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
