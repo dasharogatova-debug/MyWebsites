@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KidSay - Английский для детей от 6 лет</title>
+    
+    <!-- Фавиконка -->
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/sxwCs4x6/Untitled-design-8.jpg">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Основные стили */
@@ -118,9 +122,11 @@
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+            overflow: hidden;
         }
         
         .hero p {
@@ -212,7 +218,7 @@
         
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 30px;
         }
         
@@ -285,7 +291,7 @@
         
         .advantages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 30px;
         }
         
@@ -522,6 +528,13 @@
         }
         
         /* Адаптивность */
+        @media (max-width: 1200px) {
+            .advantages-grid,
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -554,7 +567,13 @@
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                white-space: normal;
+            }
+            
+            .advantages-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
             }
             
             .about-content, .contact-content, .methodology-content {
@@ -583,7 +602,7 @@
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .hero p {
