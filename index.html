@@ -783,30 +783,34 @@
                         <span>Занятия проходят онлайн на интерактивной платформе</span>
                     </div>
                     <div class="social-links">
-                        <a href="https://vk.com/club229506765?trackcode=28a95c6bzE0CbP28-RRWLNtHF7hUz4eyWCgYvp67FLpTRdPBhJAIJqD_FaOYZ1og8FQetFb-nr9IGTGjjLBCvFgqozkyftJOzw&from=groups" class="social-link" target="_blank"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://vk.com/club229506765?trackcode=ebda607c5jstLPAmF2JNwt2DynT72vzVnmQGbxcP5RRLYMfuhwoiUI-_GCZ0HE_EzIb5ePPo_MGZYy1yEx77d7rrGyHpaw&from=groups" class="social-link" target="_blank"><i class="fab fa-vk"></i></a>
+                        <a href="https://t.me/dariarogatova" class="social-link" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/79518301024" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <!-- Форма Formspree -->
+                    <form action="https://formspree.io/f/mvgjwbek" method="POST" id="contactForm">
+                        <input type="hidden" name="_subject" value="Новая заявка с сайта KidSay">
+                        <input type="hidden" name="_language" value="ru">
+                        
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Имя родителя" required>
+                            <input type="text" name="parent_name" class="form-control" placeholder="Имя родителя" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Имя и возраст ребенка" required>
+                            <input type="text" name="child_info" class="form-control" placeholder="Имя и возраст ребенка" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Ваш email" required>
+                            <input type="email" name="email" class="form-control" placeholder="Ваш email" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Ваш телефон">
+                            <input type="tel" name="phone" class="form-control" placeholder="Ваш телефон">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Сообщение" required></textarea>
+                            <textarea name="message" class="form-control" placeholder="Сообщение" required></textarea>
                         </div>
                         <div class="consent-checkbox">
-                            <input type="checkbox" id="consent" required>
+                            <input type="checkbox" id="consent" name="agreement" value="yes" required>
                             <label for="consent" class="consent-text">
                                 Я даю согласие на обработку моих персональных данных в соответствии с Федеральным законом от 27.07.2006 №152-ФЗ «О персональных данных» и принимаю условия Пользовательского соглашения
                             </label>
@@ -827,9 +831,9 @@
             </div>
             <p>Английский язык для детей от 6 лет с Дарьей</p>
             <div class="social-links">
-                <a href="https://vk.com/club229506765?trackcode=28a95c6bzE0CbP28-RRWLNtHF7hUz4eyWCgYvp67FLpTRdPBhJAIJqD_FaOYZ1og8FQetFb-nr9IGTGjjLBCvFgqozkyftJOzw&from=groups" class="social-link" target="_blank"><i class="fab fa-vk"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://vk.com/club229506765?trackcode=ebda607c5jstLPAmF2JNwt2DynT72vzVnmQGbxcP5RRLYMfuhwoiUI-_GCZ0HE_EzIb5ePPo_MGZYy1yEx77d7rrGyHpaw&from=groups" class="social-link" target="_blank"><i class="fab fa-vk"></i></a>
+                <a href="https://t.me/dariarogatova" class="social-link" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://wa.me/79518301024" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
             <p>&copy; 2023 KidSay. Все права защищены.</p>
         </div>
@@ -872,19 +876,49 @@
             observer.observe(el);
         });
         
-        // Обработка формы
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Обработка формы Formspree
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Проверяем, отмечен ли чекбокс согласия
+            // Проверка согласия
             const consentCheckbox = document.getElementById('consent');
             if (!consentCheckbox.checked) {
                 alert('Пожалуйста, дайте согласие на обработку персональных данных');
                 return;
             }
             
-            alert('Спасибо за вашу заявку! Я свяжусь с вами в ближайшее время.');
-            this.reset();
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            // Показываем загрузку
+            submitButton.textContent = 'Отправка...';
+            submitButton.disabled = true;
+            
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    alert('✅ Спасибо за вашу заявку! Я свяжусь с вами в ближайшее время.');
+                    form.reset();
+                } else {
+                    throw new Error('Ошибка отправки');
+                }
+            } catch (error) {
+                alert('❌ Произошла ошибка при отправке. Пожалуйста, свяжитесь со мной по телефону или через соцсети.');
+            } finally {
+                // Восстанавливаем кнопку
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
         });
         
         // Анимация пузырьков
